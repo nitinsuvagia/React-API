@@ -167,26 +167,6 @@ export default class UserList extends Component {
 					/>
 				</Paper>
 				<User isOpen={this.state.isOpen} userID={this.user_id} onClose={ this.btnClose_click.bind(this) }></User>
-
-				<div className="p10">
-					<Grid container>
-						<Grid item xs={3}></Grid>
-						<Grid item xs={6}>
-							<h2>Update</h2>
-							<form noValidate autoComplete="off">
-								<TextField fullWidth id="txtUserName_update" label="Name" value={this.state.name} onChange={(e) => this.setState({name : e.target.value})} />
-								<TextField fullWidth id="txtEmail_update" label="Email" value={this.state.email} onChange={(e) => this.setState({email : e.target.value})} />
-								<TextField fullWidth id="txtCity_update" label="City" value={this.state.city} onChange={(e) => this.setState({city : e.target.value})} />
-								<TextField fullWidth id="txtPhone_update" label="Phone" value={this.state.phone} onChange={(e) => this.setState({phone : e.target.value})} />
-								<TextField fullWidth id="txtCompany_update" label="Company" value={this.state.company} onChange={(e) => this.setState({company : e.target.value})} />
-							</form>
-							<Button onClick={this.btnUpdate_click.bind(this)} color="warning">
-								Update
-							</Button>
-						</Grid>
-						<Grid item xs={3}></Grid>
-					</Grid>
-				</div>
 			</div>
 		);
 	}
