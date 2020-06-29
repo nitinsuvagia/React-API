@@ -79,7 +79,7 @@ export default class UserList extends Component {
 		console.log(key);
 		if(this.state.users.findIndex(user => user.id === key)>=0)
 		{
-			//this.setState({isOpen: true});
+			this.setState({isOpen: true});
 			this.user_id = key;
 		}
 	}
