@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Axios from 'axios';
 import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -9,11 +10,15 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
+import Icon from '@material-ui/core/Icon';
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 import User from "./User";
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
-export default class ViewUser extends Component {
+export default class UserList extends Component {
+
 	constructor(props) {
 		super(props);
 
@@ -21,20 +26,24 @@ export default class ViewUser extends Component {
 			users: [],
 			rowsPerPage: 5,
 			page: 0,
-			isOpen: false
-
+			isOpen: false,
 		};
+
+		let user_id =  "0";
 
 		this.handleChangePage = this.handleChangePage.bind(this);
 		this.handleChangeRowsPerPage = this.handleChangeRowsPerPage.bind(this);
-		this.btnDelete_Click = this.btnDelete_Click.bind(this);
+		this.btnAdd_Click = this.btnAdd_Click.bind(this);
 		this.btnEdit_Click = this.btnEdit_Click.bind(this);
+		this.btnDelete_Click = this.btnDelete_Click.bind(this);
 	}
+
 
 	componentDidMount() {
         this.Page_Load();
 	}
 
+	// Load all Users
 	Page_Load(){
 		Axios.get(`https://jsonplaceholder.typicode.com/users`)
             .then(res => {
@@ -42,19 +51,21 @@ export default class ViewUser extends Component {
             })
 	}
 
+	// Handle to change Page - Next/Prev
 	handleChangePage = (event, newPage) => {
 		this.setState({page: newPage});
 	};
 
+	// Handle to Change No. of Rows per Page
 	handleChangeRowsPerPage = (event) => {
 		this.setState({rowsPerPage: +event.target.value});
 		this.setState({page: 0});
 	};
 
+	// Handle to Delete clicked Row, without confirmation
 	btnDelete_Click(key){
 		Axios.delete(`https://jsonplaceholder.typicode.com/users/${key}`)
 		.then((res) => {
-			console.log(key);
 			this.setState({users: this.state.users.filter(item => item.id !== key)});
 			console.log("Record deleted with # : "+{key});
 		},
@@ -63,18 +74,53 @@ export default class ViewUser extends Component {
 		})
 	}
 
+	// To load data to Edit it
 	btnEdit_Click(key){
+		console.log(key);
+		if(this.state.users.findIndex(user => user.id === key)>=0)
+		{
+			//this.setState({isOpen: true});
+			this.user_id = key;
+		}
+	}
+
+	// To open Dailog to add new User
+	btnAdd_Click(){
 		this.setState({isOpen: true});
+		this.user_id = "0";
+	}
+
+	// Click event to Update the Data
+	btnUpdate_click() {
+
+	}
+
+	// Handle to after Dailog Close to reload Data
+	btnClose_click() {
+		this.setState({ isOpen: false });
+		this.Page_Load();
 	}
 
 	render() {
 		return(
 			<div>
-				<User isOpen={this.state.isOpen}></User>
-				<div className="content-header"><h1>User List</h1></div>
+				<div className="content-header">
+					<Grid container spacing={5}>
+						<Grid item xs={6}>
+							<h1>User List</h1>
+						</Grid>
+						<Grid item xs={6}>
+							<div className="header-buttons">
+								<IconButton variant="outlined" color="primary" onClick={this.btnAdd_Click.bind(this)}>
+									<Icon color="primary" style={{ fontSize: 36 }}>add_circle</Icon>
+								</IconButton>
+							</div>
+						</Grid>
+					</Grid>
+				</div>
 				<Paper>
 					<TableContainer>
-						<Table stickyHeader aria-label="sticky table">
+						<Table stickyHeader size="small" aria-label="sticky table">
 							<TableHead>
 								<TableRow>
 									<TableCell width="30px">#</TableCell>
@@ -120,6 +166,27 @@ export default class ViewUser extends Component {
 						onChangeRowsPerPage={this.handleChangeRowsPerPage}
 					/>
 				</Paper>
+				<User isOpen={this.state.isOpen} userID={this.user_id} onClose={ this.btnClose_click.bind(this) }></User>
+
+				<div className="p10">
+					<Grid container>
+						<Grid item xs={3}></Grid>
+						<Grid item xs={6}>
+							<h2>Update</h2>
+							<form noValidate autoComplete="off">
+								<TextField fullWidth id="txtUserName_update" label="Name" value={this.state.name} onChange={(e) => this.setState({name : e.target.value})} />
+								<TextField fullWidth id="txtEmail_update" label="Email" value={this.state.email} onChange={(e) => this.setState({email : e.target.value})} />
+								<TextField fullWidth id="txtCity_update" label="City" value={this.state.city} onChange={(e) => this.setState({city : e.target.value})} />
+								<TextField fullWidth id="txtPhone_update" label="Phone" value={this.state.phone} onChange={(e) => this.setState({phone : e.target.value})} />
+								<TextField fullWidth id="txtCompany_update" label="Company" value={this.state.company} onChange={(e) => this.setState({company : e.target.value})} />
+							</form>
+							<Button onClick={this.btnUpdate_click.bind(this)} color="warning">
+								Update
+							</Button>
+						</Grid>
+						<Grid item xs={3}></Grid>
+					</Grid>
+				</div>
 			</div>
 		);
 	}

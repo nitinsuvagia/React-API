@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import ViewUser from './ViewUser'
+import UserList from './UserList'
 
 export default class Page extends Component {
     render() {
         return (
             <div className="content-wrapper">
-                <ViewUser></ViewUser>
+                <UserList></UserList>
             </div>
         )
     }
