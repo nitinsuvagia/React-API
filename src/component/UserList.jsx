@@ -14,7 +14,6 @@ import Icon from '@material-ui/core/Icon';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import User from "./User";
-import Skeleton from '@material-ui/lab/Skeleton';
 
 export default class UserList extends Component {
 
@@ -29,7 +28,6 @@ export default class UserList extends Component {
 		};
 
 		let user_id =  "0";
-		let loading = true;
 
 		this.handleChangePage = this.handleChangePage.bind(this);
 		this.handleChangeRowsPerPage = this.handleChangeRowsPerPage.bind(this);
@@ -37,7 +35,6 @@ export default class UserList extends Component {
 		this.btnEdit_Click = this.btnEdit_Click.bind(this);
 		this.btnDelete_Click = this.btnDelete_Click.bind(this);
 	}
-
 
 	componentDidMount() {
         this.Page_Load();
