@@ -14,8 +14,7 @@ import Icon from '@material-ui/core/Icon';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import User from "./User";
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 export default class UserList extends Component {
 
@@ -30,6 +29,7 @@ export default class UserList extends Component {
 		};
 
 		let user_id =  "0";
+		let loading = true;
 
 		this.handleChangePage = this.handleChangePage.bind(this);
 		this.handleChangeRowsPerPage = this.handleChangeRowsPerPage.bind(this);
@@ -47,7 +47,8 @@ export default class UserList extends Component {
 	Page_Load(){
 		Axios.get(`https://jsonplaceholder.typicode.com/users`)
             .then(res => {
-              this.setState({ users: res.data });
+				this.setState({ users: res.data });
+				this.loading = false;
             })
 	}
 
