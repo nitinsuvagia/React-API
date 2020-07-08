@@ -25,15 +25,15 @@ export default class UserList extends Component {
 			rowsPerPage: 5,
 			page: 0,
 			isOpen: false,
+			user_id: 0,
 		};
-
-		let user_id =  "0";
 
 		this.handleChangePage = this.handleChangePage.bind(this);
 		this.handleChangeRowsPerPage = this.handleChangeRowsPerPage.bind(this);
 		this.btnAdd_Click = this.btnAdd_Click.bind(this);
 		this.btnEdit_Click = this.btnEdit_Click.bind(this);
 		this.btnDelete_Click = this.btnDelete_Click.bind(this);
+
 	}
 
 	componentDidMount() {
@@ -74,18 +74,17 @@ export default class UserList extends Component {
 
 	// To load data to Edit it
 	btnEdit_Click(key){
-		console.log(key);
 		if(this.state.users.findIndex(user => user.id === key)>=0)
 		{
 			this.setState({isOpen: true});
-			this.user_id = key;
+			this.setState({user_id: key});
 		}
 	}
 
 	// To open Dailog to add new User
 	btnAdd_Click(){
 		this.setState({isOpen: true});
-		this.user_id = "0";
+		this.setState({user_id: 0});
 	}
 
 	// Click event to Update the Data
@@ -103,7 +102,7 @@ export default class UserList extends Component {
 		return(
 			<div>
 				<div className="content-header">
-					<Grid container spacing={5}>
+					<Grid container>
 						<Grid item xs={6}>
 							<h1>User List</h1>
 						</Grid>
@@ -164,7 +163,10 @@ export default class UserList extends Component {
 						onChangeRowsPerPage={this.handleChangeRowsPerPage}
 					/>
 				</Paper>
-				<User isOpen={this.state.isOpen} userID={this.user_id} onClose={ this.btnClose_click.bind(this) }></User>
+				{ this.state.isOpen
+					? <User isOpen={this.state.isOpen} user_id={this.state.user_id} onClose={ this.btnClose_click.bind(this) }></User>
+					: <div></div>
+				}
 			</div>
 		);
 	}

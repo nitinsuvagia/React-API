@@ -17,6 +17,7 @@ export default class User extends Component {
         
         this.state = {
             isOpen: props.isOpen,
+            user_id: props.user_id,
             user: [],
             name: '',
             email: '',
@@ -25,19 +26,17 @@ export default class User extends Component {
             company: '',
         }
 
-        const userID = props.userID
-
         this.handleChange = this.handleChange.bind(this);
-
-        if(this.userID !== undefined && this.userID !== '0')
+        console.log(props.user_id);
+        if(this.state.user_id !== undefined && this.state.user_id !== 0)
             this.Page_Load();
     }
 
     // Page Load Event
 	Page_Load(){
-        if(this.userID !== undefined && this.userID !== '0')
+        if(this.state.user_id !== undefined && this.state.user_id !== 0)
         {
-            Axios.get(`https://jsonplaceholder.typicode.com/users/${this.userID}`)
+            Axios.get(`https://jsonplaceholder.typicode.com/users/${this.state.user_id}`)
                 .then(res => {
                     this.setState({
                         user: res.data,
@@ -74,13 +73,12 @@ export default class User extends Component {
         usr.email = this.state.email;
         usr.city = this.state.city;
         usr.phone = this.state.phone;
-        //usr.company.name = this.company;
+        usr.company = this.company;
 
-        Axios.post(`https://jsonplaceholder.typicode.com/users`,usr)
+        if(this.state.user_id === undefined || this.state.user_id === 0) {
+
+            Axios.post(`https://jsonplaceholder.typicode.com/users`,usr)
             .then(response => console.log(response));
-
-        if(this.userID !== undefined && this.userID!=='0') {
-
 
             console.log("NEW")
             console.log(this.state.name);
@@ -91,6 +89,10 @@ export default class User extends Component {
         }
         // Edit Mode
         else {
+
+            Axios.put(`https://jsonplaceholder.typicode.com/users/${this.state.user_id}`,usr)
+            .then(response => console.log(response));
+
             console.log("EDIT")
             console.log(this.state.name);
             console.log(this.state.email);
@@ -118,9 +120,9 @@ export default class User extends Component {
                     aria-labelledby="scroll-dialog-title"
                     aria-describedby="scroll-dialog-description"
                 >
-                    <DialogTitle id="scroll-dialog-title">User Management{ this.userID==='0'?' (New)':' (Edit)'}</DialogTitle>
+                    <DialogTitle id="scroll-dialog-title">User Management{ this.state.user_id===0?' (New)':' (Edit)'}</DialogTitle>
                     <DialogContent dividers={true}>
-                    <DialogContentText
+                    <DialogContentText component="div"
                         id="scroll-dialog-description"
                         ref={this.descriptionElementRef}
                         tabIndex={-1}
@@ -142,7 +144,7 @@ export default class User extends Component {
                     <Button onClick={this.props.onClose} color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={this.btnSave_click.bind(this)} color="warning">
+                    <Button onClick={this.btnSave_click.bind(this)} color="secondary">
                         Save
                     </Button>
                     </DialogActions>

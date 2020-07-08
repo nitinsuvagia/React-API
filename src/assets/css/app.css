@@ -1,99 +1,124 @@
-body{
-    background: #EEF5FC;
+body {
+    background-color: #f5f5f5;
     color: #454545;
     margin: 0px !important;
     padding: 0px !important;
     font-family: Roboto;
 }
-  
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
-}
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
-}
-
-.logo{
-    width: 250px;
-    text-align:center;
-    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
-}
-
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.noMP {  margin: 0px; padding: 0px;}
+.m0 { margin: 0px}
 .m10 { margin: 10px;}
 .ml10 { margin-left: 10px;}
 .mr10 { margin-right: 10px;}
 .mt10 { margin-top: 10px;}
 .mb10 { margin-bottom: 10px;}
+.p0 { padding: 0px; }
 .p10 { padding: 10px; }
 .pl10 { padding-left: 10px; }
 .pr10 { padding-right: 10px; }
 .pt10 { padding-top: 10px; }
 .pb10 { padding-bottom: 10px; }
 
-.container {
-    display: grid;
-  
-    grid-template-areas:
-      "nav header"
-      "nav content";
-  
-    grid-template-columns: 250px 1fr;
-    grid-template-rows: auto 1fr;
-    grid-gap: 0px;
-  
-    height: 100vh;
-  }
+.wrapper, body {
+    min-height: 100vh;
+    position: relative;
+}
 
-.header {
-    grid-area: header;
+.wrapper {
+    position: relative;
+    top: 0;
+    height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.main-panel, .sidebar {
+    max-height: 100%;
+    height: 100%;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 250px;
+    display: block;
+    z-index: 1;
+    color: #fff;
+    font-weight: 200;
+    overflow-x: hidden;
+    background-color : #3A86FF;
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 2px 1px 0px rgba(0,0,0,0.2), 0px 1px 3px 0px rgba(0,0,0,0.12);
+}
+
+.logo{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 50px;
+    line-height: 59px;
+    width: 250px;
+    height: 100px;
+    color: #FFFFFF;
+    justify-content: center;
+    z-index: 4;
+}
+
+.logo-img {
+    width: 250px;
+    display: inline-block;
+    max-height: 100px;
+}
+
+.sidebar-wrapper {
+    overflow: auto;
+    position: relative;
+    z-index: 4;
+    width: 250px;
+    height: calc(100% - 130px);
+    padding-bottom: 30px;
+}
+
+.main-panel {
+    position: relative;
+    float: right;
+    width: calc(100% - 250px);
+    min-height: 100%;
+}
+
+.navbar-fixed {
+    position: fixed;
+    width: calc(100% - 250px);
+    right: 0;
     background-color: white;
     min-height: 60px;
-    display: flex;
-    flex-direction: column;
-    align-items: left;
     justify-content: center;
+    vertical-align: middle;
     font-size: calc(10px + 1.5vmin);
     box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
-    width:100%;
     text-align: center;
-    position: fixed;
     z-index: 1299;
 }
 
-.login-user { text-align: right; margin-right: 20px;}
-
-.sidebar-wrapper{
-    grid-area: nav;
-    min-height: 100vh;
-    background-color : White;
-    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 2px 1px 0px rgba(0,0,0,0.2), 0px 1px 3px 0px rgba(0,0,0,0.12);
-    min-width:250px;
-    position: fixed;
-    z-index: 1300;
+.main-content {
+    padding: 75px 20px 15px 20px;
+    min-height: calc(100vh - 90px);
 }
 
-.content-wrapper{
-    grid-area: content;
-    padding: 10px;
-    margin-top: 60px;
+a{ text-decoration: none; color: #3A86FF; font-weight: 400; }
+
+.copyright { font-size:9px+1vh; color: #AEAEAE;}
+
+.nav {
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
 }
+
+.login-user { text-align: right; vertical-align: middle; margin-right: 20px; height: 100%;}
 
 .content-header{
-    padding: 0 0 0 10px ;
+    padding: 0px ;
 }
 
 .header-buttons {
@@ -103,13 +128,8 @@ body{
     text-align: right;
 }
 
-.nav{
-    margin-top: 10px;
-}
-
 .bottom{
-    position: absolute;
+    position: relative;
     bottom: 0;
-    margin-bottom: 10px;
-    width:100%;
+    height: 30px;
 }
