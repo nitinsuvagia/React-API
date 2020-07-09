@@ -14,14 +14,14 @@ h2,p{
 #stickynotes ul li span{
     text-decoration:none;
     color:#000;
-    background:#ffc;
+    background:#fcf5c7;
     display:block;
     height:10em;
     width:10em;
     padding:1em;
-    -moz-box-shadow:5px 5px 7px rgba(33,33,33,1);
-    -webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7);
-    box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+    -moz-box-shadow:3px 3px 5px rgba(33,33,33,1);
+    -webkit-box-shadow: 3px 3px 5px rgba(33,33,33,.7);
+    box-shadow: 3px 3px 5px rgba(33,33,33,.7);
     -moz-transition:-moz-transform .15s linear;
     -o-transition:-o-transform .15s linear;
     -webkit-transition:-webkit-transform .15s linear;
@@ -51,7 +51,7 @@ h2,p{
     -moz-transform:rotate(4deg);
     position:relative;
     top:5px;
-    background:#cfc;
+    background:#c7f9cc;
     }
 #stickynotes ul li:nth-child(3n) span{
     -o-transform:rotate(-3deg);
@@ -59,7 +59,7 @@ h2,p{
     -moz-transform:rotate(-3deg);
     position:relative;
     top:-5px;
-    background:#ccf;
+    background:#caf0f8;
     }
 #stickynotes ul li:nth-child(5n) span{
     -o-transform:rotate(5deg);
@@ -69,12 +69,12 @@ h2,p{
     top:-10px;
     }
 #stickynotes ul li span:hover, #stickynotes ul li span:focus{
-    box-shadow:10px 10px 7px rgba(0,0,0,.7);
-    -moz-box-shadow:10px 10px 7px rgba(0,0,0,.7);
-    -webkit-box-shadow: 10px 10px 7px rgba(0,0,0,.7);
-    -webkit-transform: scale(1.25);
-    -moz-transform: scale(1.25);
-    -o-transform: scale(1.25);
+    box-shadow:5px 5px 5px rgba(0,0,0,.7);
+    -moz-box-shadow:5px 5px 5px rgba(0,0,0,.7);
+    -webkit-box-shadow:5px 5px 5px rgba(0,0,0,.7);
+    -webkit-transform: scale(1.5);
+    -moz-transform: scale(1.5);
+    -o-transform: scale(1.5);
     position:relative;
     z-index:5;
     }
