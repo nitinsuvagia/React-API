@@ -133,3 +133,7 @@ a{ text-decoration: none; color: #3A86FF; font-weight: 400; }
     bottom: 0;
     height: 30px;
 }
+
+.skeleton {
+    width: 510px;
+}

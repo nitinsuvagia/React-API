@@ -9,6 +9,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 export default class User extends Component {
     
@@ -24,39 +25,39 @@ export default class User extends Component {
             city: '',
             phone: '',
             company: '',
+            isLoading: true,
+            sb_open: false,
         }
 
         this.handleChange = this.handleChange.bind(this);
-        console.log(props.user_id);
+
         if(this.state.user_id !== undefined && this.state.user_id !== 0)
             this.Page_Load();
+        else 
+            this.state = {isLoading: false}
     }
+
+    Awaiting_Mode(){}
 
     // Page Load Event
 	Page_Load(){
-        if(this.state.user_id !== undefined && this.state.user_id !== 0)
-        {
-            Axios.get(`https://jsonplaceholder.typicode.com/users/${this.state.user_id}`)
-                .then(res => {
-                    this.setState({
-                        user: res.data,
-                        name: res.data.name, 
-                        email: res.data.email, 
-                        city: res.data.address.city, 
-                        phone: res.data.phone, 
-                        company: res.data.company.name 
-                    })
+        
+        Axios.get(`https://jsonplaceholder.typicode.com/users/${this.state.user_id}`)
+            .then(res => {
+                
+                setTimeout(this.Awaiting_Mode(),5000);
+                
+                this.setState({
+                    user: res.data,
+                    name: res.data.name, 
+                    email: res.data.email, 
+                    city: res.data.address.city, 
+                    phone: res.data.phone, 
+                    company: res.data.company.name
                 })
-        } else {
-            this.setState({
-                user: '',
-                name: '',
-                email: '',
-                city: '',
-                phone: '',
-                company: '',
+
+                setTimeout(() => {  this.setState({isLoading: false}) }, 5000);
             })
-        }
 	}
     
     // Handle Close button to close Dialog
@@ -86,6 +87,8 @@ export default class User extends Component {
             console.log(this.state.city);
             console.log(this.state.phone);
             console.log(this.state.company);
+
+            this.setState({sb_open: true});
         }
         // Edit Mode
         else {
@@ -99,6 +102,9 @@ export default class User extends Component {
             console.log(this.state.city);
             console.log(this.state.phone);
             console.log(this.state.company);
+
+            this.setState({sb_open: true});
+
         }
 
         this.props.onClose();
@@ -129,13 +135,27 @@ export default class User extends Component {
                     >
                         <Container maxWidth="sm" className="dialog-container">
                             <Grid item xs={12}>
-                                <form noValidate autoComplete="off">
-                                    <TextField fullWidth id="txtUserName" label="Name" value={this.state.name} onChange={(e) => this.setState({name : e.target.value})} />
-                                    <TextField fullWidth id="txtEmail" label="Email" value={this.state.email} onChange={(e) => this.setState({email : e.target.value})} />
-                                    <TextField fullWidth id="txtCity" label="City" value={this.state.city} onChange={(e) => this.setState({city : e.target.value})} />
-                                    <TextField fullWidth id="txtPhone" label="Phone" value={this.state.phone} onChange={(e) => this.setState({phone : e.target.value})} />
-                                    <TextField fullWidth id="txtCompany" label="Company" value={this.state.company} onChange={(e) => this.setState({company : e.target.value})} />
-                                </form>
+                                {this.state.isLoading
+                                    ?   <div className="skeleton">
+                                            <Skeleton animation="wave"/>
+                                            <Skeleton animation="wave"/>
+                                            <Skeleton animation="wave"/>
+                                            <Skeleton animation="wave"/>
+                                            <Skeleton animation="wave"/>
+                                            <Skeleton animation="wave"/>
+                                            <Skeleton animation="wave"/>
+                                            <Skeleton animation="wave"/>
+                                            <Skeleton animation="wave" />
+                                            <Skeleton animation="wave" />
+                                        </div>
+                                    :    <form noValidate autoComplete="off">
+                                            <TextField fullWidth id="txtUserName" label="Name" value={this.state.name} onChange={(e) => this.setState({name : e.target.value})} />
+                                            <TextField fullWidth id="txtEmail" label="Email" value={this.state.email} onChange={(e) => this.setState({email : e.target.value})} />
+                                            <TextField fullWidth id="txtCity" label="City" value={this.state.city} onChange={(e) => this.setState({city : e.target.value})} />
+                                            <TextField fullWidth id="txtPhone" label="Phone" value={this.state.phone} onChange={(e) => this.setState({phone : e.target.value})} />
+                                            <TextField fullWidth id="txtCompany" label="Company" value={this.state.company} onChange={(e) => this.setState({company : e.target.value})} />
+                                        </form>
+                                }
                             </Grid>
                         </Container>
                     </DialogContentText>
